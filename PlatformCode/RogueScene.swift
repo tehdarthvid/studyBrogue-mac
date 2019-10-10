@@ -20,7 +20,7 @@ import GameplayKit
     
     fileprivate var cells = [[Cell]]()
     fileprivate var textureMap: [String : SKTexture] = [:]
-    var aEvent: NSEvent?
+    @objc var aEvent: NSEvent?
 
     // We don't want small letters scaled to huge proportions, so we only allow letters to stretch 
     // within a certain range (e.g. size of M +/- 20%)
@@ -28,11 +28,11 @@ import GameplayKit
         let char: NSString = "M" // Good letter to do the base calculations from
         let calcBounds: CGRect = char.boundingRect(with: NSMakeSize(0, 0),
                                                    options: [.usesDeviceMetrics, .usesFontLeading],
-                                                   attributes: [NSFontAttributeName: NSFont(name: "Arial Unicode MS", size: 120)!])
+                                                   attributes: [NSAttributedString.Key.font: NSFont(name: "Arial Unicode MS", size: 120)!])
         return min(self.cellWidth / calcBounds.width, self.cellHeight / calcBounds.height)
     }()
     
-    public init(size: CGSize, rows: Int, cols: Int) {
+    @objc public init(size: CGSize, rows: Int, cols: Int) {
         initialSize = size
         self.rows = rows
         self.cols = cols
@@ -42,29 +42,29 @@ import GameplayKit
         anchorPoint = NSMakePoint(0, 0)
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    @objc required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func keyDown(with event: NSEvent) {
+    @objc public override func keyDown(with event: NSEvent) {
         aEvent = event
     }
     
-    public override func mouseDown(with event: NSEvent) {
+    @objc public override func mouseDown(with event: NSEvent) {
         aEvent = event
     }
     
-    public override func mouseUp(with event: NSEvent) {
+    @objc public override func mouseUp(with event: NSEvent) {
         aEvent = event
     }
     
-    public override func mouseMoved(with event: NSEvent) {
+    @objc public override func mouseMoved(with event: NSEvent) {
         aEvent = event
     }
 }
 
 extension RogueScene {
-    public func setCell(x: Int, y: Int, code: UInt32, bgColor: CGColor, fgColor: CGColor) {
+    @objc public func setCell(x: Int, y: Int, code: UInt32, bgColor: CGColor, fgColor: CGColor) {
         cells[x][y].fgcolor = SKColor(cgColor: fgColor)!
         cells[x][y].bgcolor = SKColor(cgColor: bgColor)!
         
@@ -73,7 +73,7 @@ extension RogueScene {
         }
     }
     
-    override public func sceneDidLoad() {
+    @objc override public func sceneDidLoad() {
         for x in 0...cols-1 {
             var row = [Cell]()
             for y in 0...rows-1 {
@@ -84,7 +84,7 @@ extension RogueScene {
         }
     }
     
-    override public func didMove(to view: SKView) {
+    @objc override public func didMove(to view: SKView) {
         self.anchorPoint = NSMakePoint(0, 0)
         
         for x in 0...cols-1 {
@@ -145,7 +145,7 @@ fileprivate extension RogueScene {
                 }
             }
             
-            var drawingOptions: NSStringDrawingOptions {
+            var drawingOptions: NSString.DrawingOptions {
                 switch self {
                 case .letter:
                     return [.usesFontLeading]
@@ -195,7 +195,7 @@ fileprivate extension RogueScene {
         var surface: NSImage {
             // Calculate font scale factor
             var scaleFactor: CGFloat {
-                let calcAttributes = [NSFontAttributeName: calcFont]
+                let calcAttributes = [NSAttributedString.Key.font: calcFont]
                 // If we calculate with the descender, the line height will be centered incorrectly for letters
                 let calcOptions = glyphType.drawingOptions
                 let calcBounds = text.boundingRect(with: NSMakeSize(0, 0), options: calcOptions, attributes: calcAttributes)
@@ -208,8 +208,8 @@ fileprivate extension RogueScene {
             // Actual font that we're going to render
             let font = NSFont(name: glyphType.fontName, size: fontSize * scaleFactor)!
             let fontAttributes = [
-                NSFontAttributeName: font,
-                NSForegroundColorAttributeName: SKColor.white // White so we can blend it
+                NSAttributedString.Key.font: font,
+                NSAttributedString.Key.foregroundColor: SKColor.white // White so we can blend it
             ]
             
             let realBounds: CGRect = text.boundingRect(with: NSMakeSize(0, 0), options: glyphType.drawingOptions, attributes: fontAttributes)
