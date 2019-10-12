@@ -47,6 +47,7 @@ import GameplayKit
     }
     
     @objc public override func keyDown(with event: NSEvent) {
+        print("keyDown: \(event.charactersIgnoringModifiers!)")
         aEvent = event
     }
     
