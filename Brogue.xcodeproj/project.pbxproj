@@ -86,9 +86,9 @@
 		C208190023544C8900590D1C = {
 			isa = PBXGroup;
 			children = (
+				C208190B23544C8900590D1C /* PlatformCode */,
 				C20819762354A98400590D1C /* Resources */,
 				C208192623544F1700590D1C /* BrogueCode */,
-				C208190B23544C8900590D1C /* PlatformCode */,
 				C208190A23544C8900590D1C /* Products */,
 			);
 			sourceTree = "<group>";
