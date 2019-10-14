@@ -86,6 +86,7 @@
 		C208190023544C8900590D1C = {
 			isa = PBXGroup;
 			children = (
+				C20819762354A98400590D1C /* Resources */,
 				C208192623544F1700590D1C /* BrogueCode */,
 				C208190B23544C8900590D1C /* PlatformCode */,
 				C208190A23544C8900590D1C /* Products */,
@@ -104,14 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				C208190C23544C8900590D1C /* AppDelegate.swift */,
-				C208190E23544C8900590D1C /* GameScene.sks */,
-				C208191023544C8900590D1C /* Actions.sks */,
 				C208191223544C8900590D1C /* GameScene.swift */,
 				C208191423544C8900590D1C /* ViewController.swift */,
-				C208191623544C8A00590D1C /* Assets.xcassets */,
-				C208191823544C8A00590D1C /* Main.storyboard */,
-				C208191B23544C8A00590D1C /* Info.plist */,
-				C208191C23544C8A00590D1C /* Brogue.entitlements */,
 				C208192523544E5100590D1C /* Wrapper.h */,
 				C208192323544E1200590D1C /* Wrapper.m */,
 				C208192223544E1200590D1C /* Brogue-Bridging-Header.h */,
@@ -145,6 +140,19 @@
 				C208193A23544F1700590D1C /* Globals.c */,
 			);
 			path = BrogueCode;
+			sourceTree = "<group>";
+		};
+		C20819762354A98400590D1C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C208191C23544C8A00590D1C /* Brogue.entitlements */,
+				C208190E23544C8900590D1C /* GameScene.sks */,
+				C208191023544C8900590D1C /* Actions.sks */,
+				C208191623544C8A00590D1C /* Assets.xcassets */,
+				C208191823544C8A00590D1C /* Main.storyboard */,
+				C208191B23544C8A00590D1C /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,16 +385,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = PlatformCode/Brogue.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/Brogue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				INFOPLIST_FILE = PlatformCode/Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.0;
+				MARKETING_VERSION = 1.7.5.d.0;
 				PRODUCT_BUNDLE_IDENTIFIER = darthvid.Brogue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PlatformCode/Brogue-Bridging-Header.h";
@@ -400,16 +408,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = PlatformCode/Brogue.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Resources/Brogue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				INFOPLIST_FILE = PlatformCode/Info.plist;
+				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.0;
+				MARKETING_VERSION = 1.7.5.d.0;
 				PRODUCT_BUNDLE_IDENTIFIER = darthvid.Brogue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PlatformCode/Brogue-Bridging-Header.h";
