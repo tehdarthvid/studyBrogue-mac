@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-import GameplayKit
+//import GameplayKit
 
 
 
@@ -27,8 +27,8 @@ import GameplayKit
         // Darth: View is up?
         print("\(#function)")
         //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AppActive"), object: self)
-        NotificationCenter.default.addObserver(self, selector: #selector(setAppActive), name: NSNotification.Name(rawValue: "AppActive"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(setAppInactive), name: NSNotification.Name(rawValue: "AppInactive"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(setAppActive), name: NSNotification.Name(rawValue: "AppActive"), object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(setAppInactive), name: NSNotification.Name(rawValue: "AppInactive"), object: nil)
         
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
@@ -50,7 +50,10 @@ import GameplayKit
                                               SKAction.removeFromParent()]))
         }
         
-        //runGame()
+        
+        WrapperGlobals.wrapper = Wrapper()
+        WrapperGlobals.wrapper?.hajime()
+        WrapperGlobals.scene = self
         GameSceneVars.scene = self
         setScene(self)
         setAdapterCallbacks(setGameCell)
@@ -102,14 +105,15 @@ import GameplayKit
             }
         default:
             print("foo: \(foo(27)) keyDown: \(event.characters!) keyCode: \(event.keyCode)")
-            controlKeyIsDown()
+            //controlKeyIsDown()
         }
-        print(event.charactersIgnoringModifiers!)
+        //print(event.charactersIgnoringModifiers!)
         dqInputEvents.async(execute: {
             self.aEvent = event
+            WrapperGlobals.wrapper?.currEvent = event
         })
         
-        
+        WrapperGlobals.wrapper?.setInputEvent(event)
         //var charToPlot:PlotCharStruct
     }
     
@@ -125,7 +129,7 @@ import GameplayKit
     }
     
     func dispatchBrogueGameLoop() {
-        // Darth: Run the game loop (via wrapper) in a separate thread.
+        // Darth: Run the game loop (via wrapper) in a separate thread (background QoS) via DispatchQueue.
         
         let group = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: "QueueIdentification", qos: .background)
@@ -191,18 +195,6 @@ import GameplayKit
         })
                 
         return isEventExist
-    }
-
-    // Darth: So I reaaally have to make these Objective-C? :(
-    
-    @objc func setAppActive() {
-        //print("\(#function)")
-        setActive(true)
-    }
-    
-    @objc func setAppInactive() {
-        //print("\(#function)")
-        setActive(false)
     }
     
 }

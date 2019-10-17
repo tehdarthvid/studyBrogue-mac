@@ -16,6 +16,9 @@ boolean isAppActive = false;
 unsigned int ctr = 0;
 void (*cbSetCell)() = NULL;
 
+
+cbStruct callbacks;
+
 int foo(int i) {
     return i;
 }
@@ -60,7 +63,10 @@ boolean isApplicationActive() {
     //printf("%s(%d)\n", __FUNCTION__, isAppActive);
     //printf("%s(%d) plotchar:%i\n", __FUNCTION__, isAppActive, ctr);
     
-    return isAppActive;
+    //printf("%s(%d)\n", __FUNCTION__, callbacks.isAppActive());
+    
+    return callbacks.isAppActive();
+    
 }
 
 fileEntry *listFiles(short *fileCount, char **dynamicMemoryBuffer){
@@ -98,6 +104,7 @@ void nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInput, boolean col
      */
     
     //[scene setCellWithCharToPlot: charToPlot];
+    callbacks.getBrogueEvent(textInput, colorsDance);
     [scene bridgeCurrInputEventWithReturnEvent:returnEvent textInput:textInput colorsDance:colorsDance];
     //returnEvent: UnsafePointer<rogueEvent>, textInput:Bool, colorsDance:
     
@@ -108,14 +115,22 @@ boolean pauseForMilliseconds(short milliseconds) {
     // Returns true if the player interrupted the wait with a keystroke or mouse action; otherwise false.
     
     //printf("%s(%i)\n", __FUNCTION__, milliseconds);
-    if (isAppActive) {
+    //if (isAppActive) {
         //if (milliseconds >= 16) {
-        usleep(milliseconds/1000);
-    }
+//        usleep(milliseconds/1000);
+  //  }
 
     //return false;
     //return (NULL != scene.aEvent);
-    return [scene isCurrEventExist];
+    //callbacks.cbVoidVoid();
+    
+    //return [scene isCurrEventExist];
+    boolean res = callbacks.isEventWhilePaused(milliseconds);
+    if (res) {
+        printf("%i %s(%i)\n",res,  __FUNCTION__, milliseconds);
+    }
+    
+    return (0 || res);
 }
 
 void plotChar(uchar inputChar,
@@ -179,4 +194,8 @@ void setActive(_Bool isActive) {
 
 void setScene(GameScene *gameScene) {
     scene = gameScene;
+}
+
+void setWrapperCallbacks(cbStruct fnStruct) {
+    
 }

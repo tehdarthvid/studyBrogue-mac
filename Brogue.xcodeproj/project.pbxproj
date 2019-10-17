@@ -33,6 +33,8 @@
 		C208194A23544F1700590D1C /* Grid.c in Sources */ = {isa = PBXBuildFile; fileRef = C208193823544F1700590D1C /* Grid.c */; };
 		C208194B23544F1700590D1C /* Recordings.c in Sources */ = {isa = PBXBuildFile; fileRef = C208193923544F1700590D1C /* Recordings.c */; };
 		C208194C23544F1700590D1C /* Globals.c in Sources */ = {isa = PBXBuildFile; fileRef = C208193A23544F1700590D1C /* Globals.c */; };
+		C23C334223572DF000CF0604 /* Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23C334123572DF000CF0604 /* Wrapper.swift */; };
+		C23C33442357306600CF0604 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23C33432357306600CF0604 /* Cell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		C208193923544F1700590D1C /* Recordings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Recordings.c; sourceTree = "<group>"; };
 		C208193A23544F1700590D1C /* Globals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Globals.c; sourceTree = "<group>"; };
 		C208194D2354503100590D1C /* PlatformDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformDefines.h; sourceTree = "<group>"; };
+		C23C334123572DF000CF0604 /* Wrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wrapper.swift; sourceTree = "<group>"; };
+		C23C33432357306600CF0604 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,9 +108,11 @@
 		C208190B23544C8900590D1C /* PlatformCode */ = {
 			isa = PBXGroup;
 			children = (
+				C23C33432357306600CF0604 /* Cell.swift */,
 				C208190C23544C8900590D1C /* AppDelegate.swift */,
 				C208191223544C8900590D1C /* GameScene.swift */,
 				C208191423544C8900590D1C /* ViewController.swift */,
+				C23C334123572DF000CF0604 /* Wrapper.swift */,
 				C208192523544E5100590D1C /* Wrapper.h */,
 				C208192323544E1200590D1C /* Wrapper.m */,
 				C208192223544E1200590D1C /* Brogue-Bridging-Header.h */,
@@ -233,6 +239,7 @@
 				C208191523544C8900590D1C /* ViewController.swift in Sources */,
 				C208194623544F1700590D1C /* Sqrt.c in Sources */,
 				C208192423544E1200590D1C /* Wrapper.m in Sources */,
+				C23C33442357306600CF0604 /* Cell.swift in Sources */,
 				C208194223544F1700590D1C /* Random.c in Sources */,
 				C208194A23544F1700590D1C /* Grid.c in Sources */,
 				C208193E23544F1700590D1C /* Items.c in Sources */,
@@ -245,6 +252,7 @@
 				C208194523544F1700590D1C /* Movement.c in Sources */,
 				C208194823544F1700590D1C /* Light.c in Sources */,
 				C208194023544F1700590D1C /* IO.c in Sources */,
+				C23C334223572DF000CF0604 /* Wrapper.swift in Sources */,
 				C208194723544F1700590D1C /* Time.c in Sources */,
 				C208190D23544C8900590D1C /* AppDelegate.swift in Sources */,
 				C208193C23544F1700590D1C /* RogueMain.c in Sources */,
@@ -388,7 +396,7 @@
 				CODE_SIGN_ENTITLEMENTS = Resources/Brogue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -411,7 +419,7 @@
 				CODE_SIGN_ENTITLEMENTS = Resources/Brogue.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

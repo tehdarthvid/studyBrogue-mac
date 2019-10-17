@@ -15,7 +15,7 @@
 
 int foo(int i);
 void setActive(_Bool isActive);
-void setAdapterCallbacks(void (*cbOfSetCell)());
+void setAdapterCallbacks(void (*cbOfSetCell)(void));
 void setScene(GameScene *);
 
 typedef struct {
@@ -24,6 +24,18 @@ typedef struct {
     short backRed; short backGreen; short backBlue;
     short foreRed; short foreGreen; short foreBlue;
 } PlotCharStruct;
+
+typedef struct
+{
+    void (*cbVoidVoid)(void);
+    boolean (*isAppActive)(void);
+    boolean (*isEventWhilePaused)(int);
+    rogueEvent (*getBrogueEvent)(boolean textInput, boolean colorsDance);
+} cbStruct;
+
+extern cbStruct callbacks;
+
+void setWrapperCallbacks(cbStruct fnStruct);
 
 /*
  Platform -> Brogue
