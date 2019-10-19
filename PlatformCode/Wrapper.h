@@ -29,6 +29,7 @@ typedef struct
 {
     void (*cbVoidVoid)(void);
     boolean (*isAppActive)(void);
+    boolean (*isControlKeyDown)(void);
     boolean (*isEventWhilePaused)(int);
     rogueEvent (*getBrogueEvent)(boolean textInput, boolean colorsDance);
 } cbStruct;
