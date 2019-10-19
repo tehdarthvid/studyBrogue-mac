@@ -40,7 +40,8 @@ boolean controlKeyIsDown() {
     // Darth: Seems only used for the main menu to change "New Game" to "New Game Custom".
     
     //printf("%s: \n", __PRETTY_FUNCTION__);
-    return false;
+    //return false;
+    return callbacks.isControlKeyDown();
 }
 
 short getHighScoresList(rogueHighScoresEntry returnList[HIGH_SCORES_COUNT]) {
@@ -84,7 +85,7 @@ void nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInput, boolean col
     //  It seems the other implems only loop to flush or serve as an event accumulator. When an actual Brogue recognized event occurts, the functions returns.
     //  There is some expectation that this will sortof loop efficiently until an input occurs.
     
-    printf("%s(%d, %d)\n", __FUNCTION__, textInput, colorsDance);
+    //printf("%s(%d, %d)\n", __FUNCTION__, textInput, colorsDance);
     
     /*
     NSEvent *theEvent = scene.aEvent;
@@ -104,8 +105,8 @@ void nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInput, boolean col
      */
     
     //[scene setCellWithCharToPlot: charToPlot];
-    callbacks.getBrogueEvent(textInput, colorsDance);
-    [scene bridgeCurrInputEventWithReturnEvent:returnEvent textInput:textInput colorsDance:colorsDance];
+    *returnEvent = callbacks.getBrogueEvent(textInput, colorsDance);
+    //[scene bridgeCurrInputEventWithReturnEvent:returnEvent textInput:textInput colorsDance:colorsDance];
     //returnEvent: UnsafePointer<rogueEvent>, textInput:Bool, colorsDance:
     
     //returnEvent->eventType = 0;

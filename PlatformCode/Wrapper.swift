@@ -7,6 +7,7 @@
 //
 
 //import Foundation
+// Darth: Needed for NotificationCenter
 import AppKit
 
 struct WrapperGlobals {
@@ -17,6 +18,8 @@ struct WrapperGlobals {
 
 
 class Wrapper: NSObject {
+    let dqInputEvents = DispatchQueue(label: "InputEvents", qos: .background)
+    
     var isAppActive: Bool = false
     var currEvent: NSEvent? = nil
     
@@ -26,6 +29,7 @@ class Wrapper: NSObject {
         callbacks.isEventWhilePaused = wrapIsEventWhilePaused
         callbacks.isAppActive = wrapIsAppActive
         callbacks.getBrogueEvent = wrapGetBrogueEvent
+        callbacks.isControlKeyDown = wrapIsControlKeyDown
         //setWrapperCallbacks(callbacks)
         //setAdapterCallbacks(wrapperVoidVoid)
     }
@@ -41,7 +45,38 @@ class Wrapper: NSObject {
     
     func setInputEvent(_ event: NSEvent) {
         //print("\(#function)")
-        print(event.charactersIgnoringModifiers!)
+        
+        dqInputEvents.async(execute: {
+            //print(event.charactersIgnoringModifiers!)
+            self.currEvent = event
+        })
+    }
+    
+    func getInputEvent() -> rogueEvent {
+        var evt = NSEvent()
+        var ret = rogueEvent(eventType: NUMBER_OF_EVENT_TYPES, param1: 0, param2: 0, controlKey: 0, shiftKey: 0)
+        
+        //print("\(#function)")
+        //print(event.charactersIgnoringModifiers!)
+        dqInputEvents.sync(execute: {
+            if (nil != self.currEvent) {
+                evt = self.currEvent!
+                self.currEvent = nil
+            }
+            
+        })
+        
+        if (NSEvent.EventType.keyDown == evt.type) {
+            print("\(#function) \(evt.charactersIgnoringModifiers!)")
+            
+            ret.eventType = KEYSTROKE
+            let s = evt.charactersIgnoringModifiers!.unicodeScalars
+            ret.param1 = Int(s[s.startIndex].value)
+            ret.controlKey = evt.modifierFlags.contains(.control) ? 1 : 0
+            ret.shiftKey = evt.modifierFlags.contains(.shift) ? 1 : 0
+        }
+        
+        return ret
     }
     
     // Darth: So I reaaally have to make these Objective-C? :(
@@ -62,15 +97,15 @@ class Wrapper: NSObject {
 // ********* [not part of class] ***************************
 
 func wrapGetBrogueEvent(textInput: Int8, colorsDance: Int8) -> rogueEvent {
-    var evt = rogueEvent(eventType: eventTypes(rawValue: 0), param1: 0, param2: 0, controlKey: 0, shiftKey: 0)
+    let evt = rogueEvent(eventType: NUMBER_OF_EVENT_TYPES, param1: 0, param2: 0, controlKey: 0, shiftKey: 0)
     
-    print("\(#function),", textInput, colorsDance)
+    //print("\(#function),", textInput, colorsDance)
     
-    //evt.eventType = eventTypes(rawValue: 0)
+    //WrapperGlobals.wrapper?.getInputEvent()
     
-    WrapperGlobals.wrapper?.currEvent = nil
+    //WrapperGlobals.wrapper?.currEvent = nil
     
-    return evt
+    return (WrapperGlobals.wrapper?.getInputEvent() ?? evt)
 }
 
 
@@ -98,4 +133,20 @@ func wrapIsAppActive() -> Int8 {
 
 func wrapperVoidVoid() {
     //print("\(#function)")
+}
+
+func wrapIsControlKeyDown() -> Int8 {
+    // Darth: There's another solution assuming one needs to track this all throughout, but this is only needed in the main menu, so perhaps it's worth keeping the current polling solution.
+    
+    var res = Int8(0)
+    DispatchQueue.main.async {
+        //Do UI Code here.
+        res = ((NSApp.currentEvent!.modifierFlags.contains(.control)) ? 1 : 0)
+    }
+    if (0 != res) {
+        print("\(#function)", res)
+    }
+    
+    return res
+    //return 0
 }
