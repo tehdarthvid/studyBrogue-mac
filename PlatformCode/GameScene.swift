@@ -104,14 +104,10 @@ import SpriteKit
                 label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
             }
         default:
-            print("foo: \(foo(27)) keyDown: \(event.characters!) keyCode: \(event.keyCode)")
+            print("foo: \(foo(27)) keyDown: \(event.characters!) keyCode: \(event.keyCode) cim: \(event.charactersIgnoringModifiers!)")
             //controlKeyIsDown()
         }
         //print(event.charactersIgnoringModifiers!)
-        dqInputEvents.async(execute: {
-            self.aEvent = event
-            WrapperGlobals.wrapper?.currEvent = event
-        })
         
         WrapperGlobals.wrapper?.setInputEvent(event)
         //var charToPlot:PlotCharStruct
@@ -144,6 +140,7 @@ import SpriteKit
         // does not wait. But the code in notify() gets after enter() and leave() calls are balanced
         group.notify(queue: .main) {
             print("\(#function): runGame() has finished!")
+            exit(0)
         }
     }
 
