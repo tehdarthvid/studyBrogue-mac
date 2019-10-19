@@ -1,5 +1,7 @@
 # studyBrogue-mac
 
+[This branch is for an ongoing attempt to do my own version of the macOS layer and remove as much Objective-C as possible. It maybe not build or run. When it can run satisfactorily, it will be merged back to main.]
+
 Using Brian Walker's Brouge (Mac) source to learn a few things about developing on/for Mac.
 
 Base code is from Brogue v1.7.5 (Mac sources) by Brian "Pender" Walker, which can be found on https://sites.google.com/site/broguegame/.
