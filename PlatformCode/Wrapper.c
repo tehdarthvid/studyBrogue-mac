@@ -9,8 +9,8 @@
 //#import <Foundation/Foundation.h>
 #include "Rogue.h"
 #include "Wrapper.h"
-#import "Brogue-Swift.h"
-GameScene *scene;
+//#import "Brogue-Swift.h"
+//GameScene *scene;
 
 boolean isAppActive = false;
 unsigned int ctr = 0;
@@ -159,7 +159,7 @@ void plotChar(uchar inputChar,
     charToPlot.foreGreen = foreGreen;
     charToPlot.foreBlue = foreBlue;
     
-    [scene setCellWithCharToPlot: charToPlot];
+    //[scene setCellWithCharToPlot: charToPlot];
 }
 
 boolean saveHighScore(rogueHighScoresEntry theEntry) {
@@ -193,9 +193,9 @@ void setActive(_Bool isActive) {
     isAppActive = isActive;
 }
 
-void setScene(GameScene *gameScene) {
-    scene = gameScene;
-}
+//void setScene(GameScene *gameScene) {
+//    scene = gameScene;
+//}
 
 void setWrapperCallbacks(cbStruct fnStruct) {
     

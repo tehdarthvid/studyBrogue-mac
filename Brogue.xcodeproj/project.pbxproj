@@ -14,7 +14,7 @@
 		C208191523544C8900590D1C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C208191423544C8900590D1C /* ViewController.swift */; };
 		C208191723544C8A00590D1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C208191623544C8A00590D1C /* Assets.xcassets */; };
 		C208191A23544C8A00590D1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C208191823544C8A00590D1C /* Main.storyboard */; };
-		C208192423544E1200590D1C /* Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = C208192323544E1200590D1C /* Wrapper.m */; };
+		C208192423544E1200590D1C /* Wrapper.c in Sources */ = {isa = PBXBuildFile; fileRef = C208192323544E1200590D1C /* Wrapper.c */; };
 		C208193B23544F1700590D1C /* PowerTables.c in Sources */ = {isa = PBXBuildFile; fileRef = C208192723544F1700590D1C /* PowerTables.c */; };
 		C208193C23544F1700590D1C /* RogueMain.c in Sources */ = {isa = PBXBuildFile; fileRef = C208192823544F1700590D1C /* RogueMain.c */; };
 		C208193D23544F1700590D1C /* Combat.c in Sources */ = {isa = PBXBuildFile; fileRef = C208192923544F1700590D1C /* Combat.c */; };
@@ -49,7 +49,7 @@
 		C208191B23544C8A00590D1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C208191C23544C8A00590D1C /* Brogue.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Brogue.entitlements; sourceTree = "<group>"; };
 		C208192223544E1200590D1C /* Brogue-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Brogue-Bridging-Header.h"; sourceTree = "<group>"; };
-		C208192323544E1200590D1C /* Wrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Wrapper.m; sourceTree = "<group>"; };
+		C208192323544E1200590D1C /* Wrapper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Wrapper.c; sourceTree = "<group>"; };
 		C208192523544E5100590D1C /* Wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wrapper.h; sourceTree = "<group>"; };
 		C208192723544F1700590D1C /* PowerTables.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PowerTables.c; sourceTree = "<group>"; };
 		C208192823544F1700590D1C /* RogueMain.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RogueMain.c; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				C208191423544C8900590D1C /* ViewController.swift */,
 				C23C334123572DF000CF0604 /* Wrapper.swift */,
 				C208192523544E5100590D1C /* Wrapper.h */,
-				C208192323544E1200590D1C /* Wrapper.m */,
+				C208192323544E1200590D1C /* Wrapper.c */,
 				C208192223544E1200590D1C /* Brogue-Bridging-Header.h */,
 				C208194D2354503100590D1C /* PlatformDefines.h */,
 			);
@@ -238,7 +238,7 @@
 				C208194923544F1700590D1C /* Architect.c in Sources */,
 				C208191523544C8900590D1C /* ViewController.swift in Sources */,
 				C208194623544F1700590D1C /* Sqrt.c in Sources */,
-				C208192423544E1200590D1C /* Wrapper.m in Sources */,
+				C208192423544E1200590D1C /* Wrapper.c in Sources */,
 				C23C33442357306600CF0604 /* Cell.swift in Sources */,
 				C208194223544F1700590D1C /* Random.c in Sources */,
 				C208194A23544F1700590D1C /* Grid.c in Sources */,

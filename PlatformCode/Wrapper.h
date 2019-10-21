@@ -9,14 +9,14 @@
 #ifndef Wrapper_h
 #define Wrapper_h
 
-@class GameScene;
+//@class GameScene;
 
 
 
 int foo(int i);
 void setActive(_Bool isActive);
 void setAdapterCallbacks(void (*cbOfSetCell)(void));
-void setScene(GameScene *);
+//void setScene(GameScene *);
 
 typedef struct {
     uchar inputChar;

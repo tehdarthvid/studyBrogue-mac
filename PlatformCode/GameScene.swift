@@ -11,9 +11,9 @@ import SpriteKit
 
 
 
- struct GameSceneVars {
-    static weak var scene = GameScene()
-}
+ //struct GameSceneVars {
+    //static weak var scene = GameScene()
+//}
 // To see Swift classes from ObjC they MUST be prefaced with @objc and be public/open
 @objc public class GameScene: SKScene {
 //class GameScene: SKScene {
@@ -54,8 +54,8 @@ import SpriteKit
         WrapperGlobals.wrapper = Wrapper()
         WrapperGlobals.wrapper?.hajime()
         WrapperGlobals.scene = self
-        GameSceneVars.scene = self
-        setScene(self)
+        //GameSceneVars.scene = self
+        //setScene(self)
         setAdapterCallbacks(setGameCell)
         dispatchBrogueGameLoop()
     }
