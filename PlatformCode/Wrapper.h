@@ -9,15 +9,6 @@
 #ifndef Wrapper_h
 #define Wrapper_h
 
-//@class GameScene;
-
-
-
-int foo(int i);
-void setActive(_Bool isActive);
-void setAdapterCallbacks(void (*cbOfSetCell)(void));
-//void setScene(GameScene *);
-
 typedef struct {
     uchar inputChar;
     short xLoc; short yLoc;
@@ -27,23 +18,21 @@ typedef struct {
 
 typedef struct
 {
-    void (*cbVoidVoid)(void);
     boolean (*isAppActive)(void);
     boolean (*isControlKeyDown)(void);
     boolean (*isEventWhilePaused)(int);
     rogueEvent (*getBrogueEvent)(boolean textInput, boolean colorsDance);
+    void (*plotChar)(PlotCharStruct);
 } cbStruct;
 
 extern cbStruct callbacks;
-
-void setWrapperCallbacks(cbStruct fnStruct);
 
 /*
  Platform -> Brogue
  
  The Brogue APIs can actually be called directly from Swift, but we place them here so we can keep track of them all cleanly.
  */
-void runGame(); //void rogueMain();
+
 
 /*
 // Globals Platform needs to update

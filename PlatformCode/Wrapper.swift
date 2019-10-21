@@ -24,24 +24,14 @@ class Wrapper: NSObject {
     var currEvent: NSEvent? = nil
     
     override init() {
-        // Darth: Register C callbacks. 
-        callbacks.cbVoidVoid = wrapperVoidVoid
+        // Darth: Register C callbacks.
         callbacks.isEventWhilePaused = wrapIsEventWhilePaused
         callbacks.isAppActive = wrapIsAppActive
         callbacks.getBrogueEvent = wrapGetBrogueEvent
         callbacks.isControlKeyDown = wrapIsControlKeyDown
-        //setWrapperCallbacks(callbacks)
-        //setAdapterCallbacks(wrapperVoidVoid)
+        callbacks.plotChar = wrapPlotChar
     }
     
-    func hajime() {
-        NotificationCenter.default.addObserver(self, selector: #selector(setAppActive), name: NSNotification.Name(rawValue: "AppActive"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(setAppInactive), name: NSNotification.Name(rawValue: "AppInactive"), object: nil)
-    }
-    
-    func wrapVoidVoid() {
-        //print("\(#function)")
-    }
     
     func setInputEvent(_ event: NSEvent) {
         //print("\(#function)")
@@ -52,12 +42,22 @@ class Wrapper: NSObject {
         })
     }
     
+    func isInputEventExist() -> Bool {
+        var res: Bool = false
+        dqInputEvents.sync(execute: {
+            res =  (nil != self.currEvent)
+        })
+        return res
+    }
+    
     func getInputEvent() -> rogueEvent {
         var evt = NSEvent()
         var ret = rogueEvent(eventType: NUMBER_OF_EVENT_TYPES, param1: 0, param2: 0, controlKey: 0, shiftKey: 0)
         
         //print("\(#function)")
-        //print(event.charactersIgnoringModifiers!)
+        
+        // Darth: Copy the event then reset. Maybe I should just have a permanent variable and just change the event status to something non-existent? Think about that for the future.
+        
         dqInputEvents.sync(execute: {
             if (nil != self.currEvent) {
                 evt = self.currEvent!
@@ -79,32 +79,45 @@ class Wrapper: NSObject {
         return ret
     }
     
-    // Darth: So I reaaally have to make these Objective-C? :(
+    func runGameLoop() {
+        // Darth: Run the game loop in a separate thread (background QoS) via DispatchQueue.
+        
+        let group = DispatchGroup()
+        let dispatchQueue = DispatchQueue(label: "BrogueGameLoop", qos: .background)
+        group.enter()
+        dispatchQueue.async(group: group,  execute: {
+            // Darth: Run Brogue's rogueMain()
+            rogueMain()
+            group.leave()
+        })
+        
 
-    @objc func setAppActive() {
-        //print("\(#function)")
-        isAppActive = true
+        // does not wait. But the code in notify() gets after enter() and leave() calls are balanced
+        group.notify(queue: .main) {
+            print("\(#function): runGame() has finished!")
+            self.evtBrogueEnded()
+        }
     }
-
-    @objc func setAppInactive() {
-        //print("\(#function)")
-        isAppActive = false
+    
+    func evtBrogueEnded() {
+        // trigger the app to close
+        print("\(#function)")
+        exit(0)
     }
-
+    
+    func plotChar(_ ch: PlotCharStruct) {
+        //print("\(#function)", ch.inputChar)
+    }
 }
 
-
-// ********* [not part of class] ***************************
+/*
+ ******* [The callbacks called by wrapper.c. Not part of class but bridges to it.] *******
+ */
 
 func wrapGetBrogueEvent(textInput: Int8, colorsDance: Int8) -> rogueEvent {
     let evt = rogueEvent(eventType: NUMBER_OF_EVENT_TYPES, param1: 0, param2: 0, controlKey: 0, shiftKey: 0)
     
     //print("\(#function),", textInput, colorsDance)
-    
-    //WrapperGlobals.wrapper?.getInputEvent()
-    
-    //WrapperGlobals.wrapper?.currEvent = nil
-    
     return (WrapperGlobals.wrapper?.getInputEvent() ?? evt)
 }
 
@@ -117,8 +130,18 @@ func wrapIsEventWhilePaused(milliseconds: Int32) -> Int8 {
     //print("\(#function),", milliseconds)
     //print("\(#function),", milliseconds, WrapperGlobals.wrapper!.isAppActive)
     if (WrapperGlobals.wrapper!.isAppActive) {
-        if (nil != WrapperGlobals.wrapper?.currEvent) {
+        // Darth: Use DQ to check. Return "true" if there is an event available.
+        if (WrapperGlobals.wrapper!.isInputEventExist()) {
             res = Int8(truncating: NSNumber(true))
+        }
+        else {
+            // Darth: Should we actually implement some sort of sleep here? ¯\_(ツ)_/¯
+            //          How to provide that delay without killing the thread?
+            //sleep(UInt32(milliseconds))
+            //print("fake sleep,", milliseconds, WrapperGlobals.wrapper!.isAppActive)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                // your code here
+            }
         }
     }
     
@@ -128,11 +151,6 @@ func wrapIsEventWhilePaused(milliseconds: Int32) -> Int8 {
 func wrapIsAppActive() -> Int8 {
     //print("\(#function)", WrapperGlobals.wrapper!.isAppActive)
     return Int8(truncating: NSNumber(value:WrapperGlobals.wrapper!.isAppActive))
-}
-
-
-func wrapperVoidVoid() {
-    //print("\(#function)")
 }
 
 func wrapIsControlKeyDown() -> Int8 {
@@ -148,5 +166,9 @@ func wrapIsControlKeyDown() -> Int8 {
     }
     
     return res
-    //return 0
+}
+
+func wrapPlotChar(ch: PlotCharStruct) {
+    //print("\(#function)", ch.inputChar)
+    WrapperGlobals.wrapper?.plotChar(ch)
 }

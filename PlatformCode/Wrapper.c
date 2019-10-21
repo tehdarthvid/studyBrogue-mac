@@ -14,23 +14,15 @@
 
 boolean isAppActive = false;
 unsigned int ctr = 0;
-void (*cbSetCell)() = NULL;
+//void (*cbSetCell)() = NULL;
 
 
 cbStruct callbacks;
-
-int foo(int i) {
-    return i;
-}
 
 /*
  Platform -> Brogue
  */
 
-void runGame() {
-    printf("%s: \n", __PRETTY_FUNCTION__);
-    rogueMain();
-}
 
 /*
  Brogue -> Platform
@@ -115,17 +107,6 @@ void nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInput, boolean col
 boolean pauseForMilliseconds(short milliseconds) {
     // Returns true if the player interrupted the wait with a keystroke or mouse action; otherwise false.
     
-    //printf("%s(%i)\n", __FUNCTION__, milliseconds);
-    //if (isAppActive) {
-        //if (milliseconds >= 16) {
-//        usleep(milliseconds/1000);
-  //  }
-
-    //return false;
-    //return (NULL != scene.aEvent);
-    //callbacks.cbVoidVoid();
-    
-    //return [scene isCurrEventExist];
     boolean res = callbacks.isEventWhilePaused(milliseconds);
     if (res) {
         printf("%i %s(%i)\n",res,  __FUNCTION__, milliseconds);
@@ -160,6 +141,7 @@ void plotChar(uchar inputChar,
     charToPlot.foreBlue = foreBlue;
     
     //[scene setCellWithCharToPlot: charToPlot];
+    callbacks.plotChar(charToPlot);
 }
 
 boolean saveHighScore(rogueHighScoresEntry theEntry) {
@@ -184,19 +166,3 @@ char *getClipboard() {
 /*
  Swift -> Adapter
  */
-
-void setAdapterCallbacks(void (*cbOfSetCell)()) {
-    cbSetCell = cbOfSetCell;
-}
-
-void setActive(_Bool isActive) {
-    isAppActive = isActive;
-}
-
-//void setScene(GameScene *gameScene) {
-//    scene = gameScene;
-//}
-
-void setWrapperCallbacks(cbStruct fnStruct) {
-    
-}

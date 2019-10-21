@@ -11,24 +11,13 @@ import SpriteKit
 
 
 
- //struct GameSceneVars {
-    //static weak var scene = GameScene()
-//}
-// To see Swift classes from ObjC they MUST be prefaced with @objc and be public/open
-@objc public class GameScene: SKScene {
-//class GameScene: SKScene {
+ class GameScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    
-    let dqInputEvents = DispatchQueue(label: "InputEvents", qos: .background)
-    @objc public var aEvent: NSEvent? = nil
     
     override public func didMove(to view: SKView) {
         // Darth: View is up?
         print("\(#function)")
-        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AppActive"), object: self)
-        //NotificationCenter.default.addObserver(self, selector: #selector(setAppActive), name: NSNotification.Name(rawValue: "AppActive"), object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(setAppInactive), name: NSNotification.Name(rawValue: "AppInactive"), object: nil)
         
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
@@ -51,13 +40,11 @@ import SpriteKit
         }
         
         
-        WrapperGlobals.wrapper = Wrapper()
-        WrapperGlobals.wrapper?.hajime()
+        // Init the Wrapper.
         WrapperGlobals.scene = self
-        //GameSceneVars.scene = self
-        //setScene(self)
-        setAdapterCallbacks(setGameCell)
-        dispatchBrogueGameLoop()
+        WrapperGlobals.wrapper = Wrapper()
+        // Tigger game loop.
+        WrapperGlobals.wrapper?.runGameLoop()
     }
     
     
@@ -104,13 +91,11 @@ import SpriteKit
                 label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
             }
         default:
-            print("foo: \(foo(27)) keyDown: \(event.characters!) keyCode: \(event.keyCode) cim: \(event.charactersIgnoringModifiers!)")
-            //controlKeyIsDown()
+            print("\(event.characters!) keyCode: \(event.keyCode) cim: \(event.charactersIgnoringModifiers!)")
         }
         //print(event.charactersIgnoringModifiers!)
         
         WrapperGlobals.wrapper?.setInputEvent(event)
-        //var charToPlot:PlotCharStruct
     }
     
     
@@ -123,81 +108,4 @@ import SpriteKit
         // Darth: Scene is loaded, but view is not yet up?
         print("\(#function)")
     }
-    
-    func dispatchBrogueGameLoop() {
-        // Darth: Run the game loop (via wrapper) in a separate thread (background QoS) via DispatchQueue.
-        
-        let group = DispatchGroup()
-        let dispatchQueue = DispatchQueue(label: "QueueIdentification", qos: .background)
-        group.enter()
-        dispatchQueue.async(group: group,  execute: {
-            //Time consuming task here
-            runGame()
-            group.leave()
-        })
-        
-
-        // does not wait. But the code in notify() gets after enter() and leave() calls are balanced
-        group.notify(queue: .main) {
-            print("\(#function): runGame() has finished!")
-            exit(0)
-        }
-    }
-
-    
-    /*@objc public func setCell(inputChar: UInt32,
-                              xLoc: Int, yLoc: Int,
-                              backRed: Int, backGreen: Int, backBlue: Int,
-                              foreRed: Int, foreGreen: Int, foreBlue: Int) {
-    */
-    //@objc public func setCell(inputChar: UInt32) {
-    @objc public func setCell(charToPlot: PlotCharStruct) {
-        //print("\(#function)")
-        //print("setcell(", charToPlot.inputChar, charToPlot.xLoc, charToPlot.yLoc, ")")
-        
-    }
-    
-    @objc public func bridgeCurrInputEvent(returnEvent: UnsafeMutablePointer<rogueEvent>, textInput:Bool, colorsDance: Bool) {
-        print("\(#function)", textInput, colorsDance)
-        
-        var currEvent: NSEvent?
-        
-        dqInputEvents.sync(execute: {
-            currEvent = self.aEvent!
-            self.aEvent = nil
-        })
-        
-        //NSEventType theEventType = theEvent.type;
-        if (NSEvent.EventType.keyDown == currEvent?.type) {
-            print("char", (currEvent?.charactersIgnoringModifiers!)!.first);
-        }
-        
-        if (colorsDance) {
-            //shuffleTerrainColors(3, true)
-            shuffleTerrainColors(3, 1)
-            commitDraws()
-        }
-        
-        returnEvent.pointee.eventType = eventTypes(rawValue: 0)
-    }
-    
-    @objc public func isCurrEventExist() -> Bool {
-        var isEventExist = false;
-        
-        //print("\(#function)")
-        
-        dqInputEvents.sync(execute: {
-            isEventExist = (nil != self.aEvent)
-            //print("\(#function)", (nil != self.aEvent))
-        })
-                
-        return isEventExist
-    }
-    
-}
-
-// ********* [not part of class] ***************************
-func setGameCell() {
-    print("\(#function)")
-    //GameSceneVars.scene?.setCell()
 }
