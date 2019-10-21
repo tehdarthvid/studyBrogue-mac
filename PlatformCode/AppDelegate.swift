@@ -26,14 +26,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidBecomeActive(_ aNotification: Notification) {
         // Sent by the default notification center immediately after the application becomes active.
         
-        //print("\(#function)")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AppActive"), object: self)
+        // Darth: Maybe no need to protect from concurrency?
+        WrapperGlobals.wrapper?.isAppActive = true
     }
     
     func applicationWillResignActive(_ aNotification: Notification) {
         // Sent by the default notification center immediately before the application is deactivated.
         
-        //print("\(#function)")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AppInactive"), object: self)
+        // Darth: Maybe no need to protect from concurrency?
+        WrapperGlobals.wrapper?.isAppActive = false
     }
 }
