@@ -1,5 +1,7 @@
 # studyBrogue-mac
 
+** working on migrating Objective-C out of the code on the [xcode-11.1-pregen-migration branch](https://github.com/tehdarthvid/studyBrogue-mac/tree/xcode-11.1-pregen-migration) **
+
 Using Brian Walker's Brouge (Mac) source to learn a few things about developing on/for Mac.
 
 Base code is from Brogue v1.7.5 (Mac sources) by Brian "Pender" Walker, which can be found on https://sites.google.com/site/broguegame/.
