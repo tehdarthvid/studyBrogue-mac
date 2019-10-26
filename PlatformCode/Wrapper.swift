@@ -7,23 +7,23 @@
 //
 
 //import Foundation
-// Darth: Needed for NotificationCenter
+// Darth: Needed for DispatchQueue
 import AppKit
 
 struct WrapperGlobals {
-    static var scene: GameScene? = nil
     static var wrapper: Wrapper? = nil
 }
 
 
 
-class Wrapper: NSObject {
+class Wrapper {
     let dqInputEvents = DispatchQueue(label: "InputEvents", qos: .background)
+    //let glyphMgr = GlyphMgr()
     
     var isAppActive: Bool = false
     var currEvent: NSEvent? = nil
     
-    override init() {
+    init() {
         // Darth: Register C callbacks.
         callbacks.isEventWhilePaused = wrapIsEventWhilePaused
         callbacks.isAppActive = wrapIsAppActive
