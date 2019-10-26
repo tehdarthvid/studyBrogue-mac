@@ -109,12 +109,12 @@
 			isa = PBXGroup;
 			children = (
 				C23C33432357306600CF0604 /* Cell.swift */,
-				C208190C23544C8900590D1C /* AppDelegate.swift */,
-				C208191223544C8900590D1C /* GameScene.swift */,
-				C208191423544C8900590D1C /* ViewController.swift */,
 				C23C334123572DF000CF0604 /* Wrapper.swift */,
 				C208192523544E5100590D1C /* Wrapper.h */,
 				C208192323544E1200590D1C /* Wrapper.c */,
+				C208191223544C8900590D1C /* GameScene.swift */,
+				C208191423544C8900590D1C /* ViewController.swift */,
+				C208190C23544C8900590D1C /* AppDelegate.swift */,
 				C208192223544E1200590D1C /* Brogue-Bridging-Header.h */,
 				C208194D2354503100590D1C /* PlatformDefines.h */,
 			);
