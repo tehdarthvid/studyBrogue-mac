@@ -9,24 +9,16 @@
 //#import <Foundation/Foundation.h>
 #include "Rogue.h"
 #include "Wrapper.h"
-//#import "Brogue-Swift.h"
-//GameScene *scene;
 
-boolean isAppActive = false;
-unsigned int ctr = 0;
-//void (*cbSetCell)() = NULL;
 
+/*
+Complete missing C functions from BrogueCode then transfer calls to Wrapper.swift so all actual handling is via Swift.
+"callbacks" struct is actually initialized in Wrapper.swift, but has to be declared here for C functions to find the global.
+*/
 
 cbStruct callbacks;
 
-/*
- Platform -> Brogue
- */
 
-
-/*
- Brogue -> Platform
- */
 
 boolean controlKeyIsDown() {
     // Darth: Seems only used for the main menu to change "New Game" to "New Game Custom".
@@ -53,11 +45,8 @@ void initializeLaunchArguments(enum NGCommands *command, char *path, unsigned lo
 
 boolean isApplicationActive() {
     // Darth: Seems only used for the main menu to change "New Game" to "New Game Custom".
-    //printf("%s(%d)\n", __FUNCTION__, isAppActive);
-    //printf("%s(%d) plotchar:%i\n", __FUNCTION__, isAppActive, ctr);
     
     //printf("%s(%d)\n", __FUNCTION__, callbacks.isAppActive());
-    
     return callbacks.isAppActive();
     
 }
@@ -77,31 +66,7 @@ void nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInput, boolean col
     //  It seems the other implems only loop to flush or serve as an event accumulator. When an actual Brogue recognized event occurts, the functions returns.
     //  There is some expectation that this will sortof loop efficiently until an input occurs.
     
-    //printf("%s(%d, %d)\n", __FUNCTION__, textInput, colorsDance);
-    
-    /*
-    NSEvent *theEvent = scene.aEvent;
-    NSEventType theEventType = theEvent.type;
-    scene.aEvent = NULL;
-    
-    if (theEventType == NSKeyDown && !(theEvent.modifierFlags & NSCommandKeyMask)) {
-        
-        char a = [[theEvent charactersIgnoringModifiers] characterAtIndex:0];
-        printf("char %d\n", a);
-    }
-    
-    if (colorsDance) {
-        shuffleTerrainColors(3, true);
-        commitDraws();
-    }
-     */
-    
-    //[scene setCellWithCharToPlot: charToPlot];
     *returnEvent = callbacks.getBrogueEvent(textInput, colorsDance);
-    //[scene bridgeCurrInputEventWithReturnEvent:returnEvent textInput:textInput colorsDance:colorsDance];
-    //returnEvent: UnsafePointer<rogueEvent>, textInput:Bool, colorsDance:
-    
-    //returnEvent->eventType = 0;
 }
 
 boolean pauseForMilliseconds(short milliseconds) {
@@ -124,12 +89,6 @@ void plotChar(uchar inputChar,
     
     PlotCharStruct charToPlot;
 
-    //printf("%s: \n", __PRETTY_FUNCTION__);
-    //cbSetCell();
-    //[scene setCell];
-    //[scene setCellWithX:xLoc y:yLoc code:inputChar bgColor:backColor fgColor:foreColor];
-    // !@($&@#(%&#$(%#(!*($%@ Objective-C!!!!
-    //[scene setCellWithInputChar:inputChar xLoc:xLoc yLoc:yLoc backRed:backRed backGreen:backGreen backBlue:backBlue foreRed:foreRed foreGreen:foreGreen foreBlue:foreBlue];
     charToPlot.inputChar = inputChar;
     charToPlot.xLoc = xLoc;
     charToPlot.yLoc = yLoc;
@@ -140,7 +99,6 @@ void plotChar(uchar inputChar,
     charToPlot.foreGreen = foreGreen;
     charToPlot.foreBlue = foreBlue;
     
-    //[scene setCellWithCharToPlot: charToPlot];
     callbacks.plotChar(charToPlot);
 }
 
@@ -162,7 +120,3 @@ char *getClipboard() {
     return 0;
 }
 #endif
-
-/*
- Swift -> Adapter
- */

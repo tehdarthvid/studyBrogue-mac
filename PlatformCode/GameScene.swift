@@ -41,7 +41,7 @@ import SpriteKit
         
         
         // Init the Wrapper.
-        WrapperGlobals.scene = self
+        //WrapperGlobals.scene = self
         WrapperGlobals.wrapper = Wrapper()
         // Tigger game loop.
         WrapperGlobals.wrapper?.runGameLoop()
