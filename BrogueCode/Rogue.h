@@ -2641,8 +2641,8 @@ extern "C" {
 
 	void plotChar(uchar inputChar,
 				  short xLoc, short yLoc,
-				  short backRed, short backGreen, short backBlue,
-				  short foreRed, short foreGreen, short foreBlue);
+				  short foreRed, short foreGreen, short foreBlue,
+				  short backRed, short backGreen, short backBlue);
 	boolean pauseForMilliseconds(short milliseconds);
     boolean isApplicationActive();
 	void nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInput, boolean colorsDance);

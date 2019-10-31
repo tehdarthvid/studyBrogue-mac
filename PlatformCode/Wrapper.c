@@ -72,6 +72,7 @@ void nextKeyOrMouseEvent(rogueEvent *returnEvent, boolean textInput, boolean col
 boolean pauseForMilliseconds(short milliseconds) {
     // Returns true if the player interrupted the wait with a keystroke or mouse action; otherwise false.
     
+    //printf("%s(%i)\n",  __FUNCTION__, milliseconds);
     boolean res = callbacks.isEventWhilePaused(milliseconds);
     if (res) {
         printf("%i %s(%i)\n",res,  __FUNCTION__, milliseconds);
@@ -82,8 +83,13 @@ boolean pauseForMilliseconds(short milliseconds) {
 
 void plotChar(uchar inputChar,
               short xLoc, short yLoc,
-              short backRed, short backGreen, short backBlue,
-              short foreRed, short foreGreen, short foreBlue) {
+              short foreRed, short foreGreen, short foreBlue,
+              short backRed, short backGreen, short backBlue) {
+
+//void plotChar(uchar inputChar,
+//              short xLoc, short yLoc,
+//              short backRed, short backGreen, short backBlue,
+//              short foreRed, short foreGreen, short foreBlue) {
     //  plotChar: plots inputChar at (xLoc, yLoc) with specified background and foreground colors.
     //  Color components are given in ints from 0 to 100.
     
